@@ -164,7 +164,6 @@
 
             // Control de información para mostrar el nombre del estado
             const info = L.control();
-
             info.onAdd = function (map) {
                 this._div = L.DomUtil.create('div', 'info'); // crea un div con la clase 'info'
                 this.update();
@@ -174,7 +173,7 @@
             // Método para actualizar el control en función de las propiedades del objeto pasado
             info.update = function (props) {
                 this._div.innerHTML = '<h4>Estados de México</h4>' + (props ?
-                    '<b>' + props.name + '</b><br />' + (props.density ? props.density + ' personas / mi<sup>2</sup>' : '')
+                    '<b>' + props.NOMGEO + '</b><br />' + ('Clave: ' + props.CVE_MUN ? props.CVE_MUN : '')
                     : 'Pasa el ratón sobre un estado');
             };
 
