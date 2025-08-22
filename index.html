@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Coahuila de Zaragoza, México con sus municipios</title>
+    <!-- Incluye Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+        integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Incluye Tailwind CSS para estilos modernos y responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /* Evita scroll en el cuerpo */
+        }
+
+        #map {
+            height: 100vh;
+            /* Ocupa el 100% de la altura de la ventana */
+            width: 100vw;
+            /* Ocupa el 100% del ancho de la ventana */
+            border-radius: 0.5rem;
+            /* Bordes redondeados */
+        }
+
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-tip {
+            border-radius: 0.5rem;
+            /* Bordes redondeados para popups */
+        }
+
+        .info {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            width: 150px;
+            /* Ancho fijo para el panel de información */
+        }
+
+        .info h4 {
+            margin: 0 0 5px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4 rounded-lg p-2 bg-white shadow-md">
+        Mapa de Coahuila de Zaragoza, México con sus municipios
+    </h1>
+    <div id="map" class="shadow-lg"></div>
+    <!-- Incluye Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
+        integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
+    <!-- Mueve el script personalizado después de la inclusión de Leaflet JS -->
+    <script>
+        // Envuelve todo el código de Leaflet dentro de un evento DOMContentLoaded
+        // Esto asegura que la biblioteca Leaflet (y el objeto L) esté completamente cargada
+        // antes de que intentemos usarla.
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Inicializa el mapa
+            // Centra el mapa en una ubicación aproximada de México y un zoom adecuado
+            const map = L.map('map').setView([27.0, -102.5], 7);
+
+            // Agrega la capa de OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            // Define una variable para almacenar la capa de los estados
+            let statesLayer;
+
+            // Función para cargar los datos GeoJSON de los estados de México
+            // Usaremos un archivo GeoJSON público
+            // Fuente: https://github.com/PhantomInsights/mexico-geojson
+            fetch('geojson/05.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Estilo para los estados
+                    function style(feature) {
+                        return {
+                            fillColor: '#A38AFF', // Color de relleno
+                            weight: 2,
+                            opacity: 1,
+                            color: 'white', // Color del borde
+                            dashArray: '3',
+                            fillOpacity: 0.7
+                        };
+                    }
+
+                    // Función para resaltar el estado al pasar el ratón por encima
+                    function highlightFeature(e) {
+                        const layer = e.target;
+
+                        layer.setStyle({
+                            weight: 5,
+                            color: '#666',
+                            dashArray: '',
+                            fillOpacity: 0.9
+                        });
+
+                        // Si no es Internet Explorer o Edge (que no tienen L.Browser.ie)
+                        if (!L.Browser.ie && !L.Browser.edge) {
+                            layer.bringToFront();
+                        }
+                        info.update(layer.feature.properties);
+                    }
+
+                    // Función para resetear el estilo del estado
+                    function resetHighlight(e) {
+                        statesLayer.resetStyle(e.target);
+                        info.update(); // Limpia la información del estado
+                    }
+
+                    // Función para hacer zoom al estado clickeado
+                    function zoomToFeature(e) {
+                        map.fitBounds(e.target.getBounds());
+                    }
+
+                    // Asigna los eventos a cada característica GeoJSON
+                    function onEachFeature(feature, layer) {
+                        layer.on({
+                            mouseover: highlightFeature,
+                            mouseout: resetHighlight,
+                            click: zoomToFeature
+                        });
+                        if (feature.properties && feature.properties.NOMGEO) {
+                            layer.bindPopup(feature.properties.NOMGEO); // Muestra el nombre del estado en un popup
+                        }
+                    }
+
+                    // Agrega la capa GeoJSON al mapa
+                    statesLayer = L.geoJson(data, {
+                        style: style,
+                        onEachFeature: onEachFeature
+                    }).addTo(map);
+                })
+                .catch(error => {
+                    console.error('Error al cargar los datos GeoJSON:', error);
+                    // Mostrar un mensaje al usuario en caso de error
+                    const errorMessageDiv = document.createElement('div');
+                    errorMessageDiv.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md shadow-lg z-50';
+                    errorMessageDiv.textContent = 'No se pudieron cargar los datos de los estados de México.';
+                    document.body.appendChild(errorMessageDiv);
+                });
+
+            // Control de información para mostrar el nombre del estado
+            const info = L.control();
+
+            info.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info'); // crea un div con la clase 'info'
+                this.update();
+                return this._div;
+            };
+
+            // Método para actualizar el control en función de las propiedades del objeto pasado
+            info.update = function (props) {
+                this._div.innerHTML = '<h4>Estados de México</h4>' + (props ?
+                    '<b>' + props.name + '</b><br />' + (props.density ? props.density + ' personas / mi<sup>2</sup>' : '')
+                    : 'Pasa el ratón sobre un estado');
+            };
+
+            info.addTo(map);
+        }); // Cierre del DOMContentLoaded
+    </script>
+</body>
+
+</html>
