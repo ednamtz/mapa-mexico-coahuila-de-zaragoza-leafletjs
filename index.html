@@ -86,7 +86,7 @@
             // Función para cargar los datos GeoJSON de los estados de México
             // Usaremos un archivo GeoJSON público
             // Fuente: https://github.com/PhantomInsights/mexico-geojson
-            fetch('geojson/05.json')
+            fetch('https://raw.githubusercontent.com/guivaloz/mapa-mexico-coahuila-de-zaragoza-leafletjs/refs/heads/main/geojson/05.json')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
