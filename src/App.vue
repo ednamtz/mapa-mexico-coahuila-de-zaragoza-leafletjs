@@ -28,11 +28,12 @@
       <v-main>
         <div v-if="selectedMenu === 'Inicio'">
           <Header msg="Inicio" />
-          <Chart :chart-data="municiosChartData" />
+          <BarChart :chart-data="municiosBarChartData" />
+          <PieChart :chart-data="municiosPieChartData" />
         </div>
         <div v-if="selectedMenu === 'Municipios'">
           <Header msg="Municipios" />
-          <Map />
+          <StateMap />
         </div>
         <div v-else-if="selectedMenu === 'Centralizados'">
           <Header msg="Centralizados" />
@@ -50,13 +51,14 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import Header from './components/Header.vue'
-import Map from './components/StateMap.vue'
-import Chart from './components/BarChart.vue'
+import StateMap from './components/StateMap.vue'
+import BarChart from './components/BarChart.vue'
+import PieChart from './components/PieChart.vue'
 
 const menuOptions = ['Inicio', 'Municipios', 'Centralizados', 'Descentralizados']
 const selectedMenu = ref('Inicio')
 
-const municiosChartData = reactive({
+const municiosBarChartData = reactive({
   labels: ['Municipios', 'Centralizados', 'Descentralizados'],
   datasets: [
     {
@@ -71,6 +73,18 @@ const municiosChartData = reactive({
     }
   ]
 });
+
+const municiosPieChartData = reactive({
+  labels: ['Municipios', 'Centralizados', 'Descentralizados'],
+  datasets: [
+    {
+      label: 'Población',
+      backgroundColor: ['#f87171', '#bfdbfe', '#34d399'],
+      data: [45, 30, 40]
+    }
+  ]
+});
+
 </script>
 
 <style>
