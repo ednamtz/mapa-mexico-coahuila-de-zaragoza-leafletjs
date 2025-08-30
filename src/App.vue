@@ -1,35 +1,50 @@
 <template>
-  <div id="app" class="flex flex-col items-center justify-center">
-    <nav class="w-full bg-gray-200 py-6 mb-8 flex justify-center">
-      <div class="flex w-full max-w-5xl gap-8">
-        <button
-          v-for="option in menuOptions"
-          :key="option"
-          class="flex-1 px-8 py-6 rounded-lg shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 font-bold"
-          :class="selectedMenu === option ? 'bg-blue-500 text-white scale-105' : 'bg-white text-gray-700 hover:bg-blue-100'"
-          @click="selectedMenu = option"
-        >
-          {{ option }}
-        </button>
-      </div>
-    </nav>
-    <div v-if="selectedMenu === 'Inicio'">
-      <Welcome msg="Inicio" />
-      <Chart :chart-data="municiosChartData" />
-    </div>
-    <div v-if="selectedMenu === 'Municipios'">
-      <Welcome msg="Municipios" />
-      <Map />
-    </div>
-    <div v-else-if="selectedMenu === 'Centralizados'">
-      <h2 class="text-2xl font-semibold mb-4">Centralizados</h2>
-      <p>Contenido para Centralizados.</p>
-    </div>
-    <div v-else-if="selectedMenu === 'Descentralizados'">
-      <h2 class="text-2xl font-semibold mb-4">Descentralizados</h2>
-      <p>Contenido para Descentralizados.</p>
-    </div>
-  </div>
+  <v-app>
+    <v-container fluid class="pa-0">
+      <v-app-bar flat color="grey-lighten-3" class="mb-8">
+        <v-row no-gutters class="w-100" style="gap: 24px;">
+          <v-col
+            v-for="option in menuOptions"
+            :key="option"
+            cols="12"
+            md="3"
+            class="pa-0"
+            style="flex: 1 1 0; min-width: 300px;"
+          >
+            <v-btn
+              block
+              large
+              :color="selectedMenu === option ? 'primary' : 'white'"
+              :class="selectedMenu === option ? 'text-white' : 'text-grey-darken-3'"
+              elevation="4"
+              @click="selectedMenu = option"
+              class="menu-btn menu-btn-bordered"
+            >
+              {{ option }}
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-app-bar>
+      <v-main>
+        <div v-if="selectedMenu === 'Inicio'">
+          <Welcome msg="Inicio" />
+          <Chart :chart-data="municiosChartData" />
+        </div>
+        <div v-if="selectedMenu === 'Municipios'">
+          <Welcome msg="Municipios" />
+          <Map />
+        </div>
+        <div v-else-if="selectedMenu === 'Centralizados'">
+          <h2 class="text-2xl font-semibold mb-4">Centralizados</h2>
+          <p>Contenido para Centralizados.</p>
+        </div>
+        <div v-else-if="selectedMenu === 'Descentralizados'">
+          <h2 class="text-2xl font-semibold mb-4">Descentralizados</h2>
+          <p>Contenido para Descentralizados.</p>
+        </div>
+      </v-main>
+    </v-container>
+  </v-app>
 </template>
 
 <script setup>
@@ -57,3 +72,30 @@ const municiosChartData = reactive({
   ]
 });
 </script>
+
+<style>
+.menu-row {
+  gap: 32px !important; /* Increase space between buttons */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.menu-btn {
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 0 !important;
+  padding: 4px;
+}
+.menu-btn-bordered {
+  border: 2px solid #c8ced4 !important;
+  border-radius: 4px !important;
+  transition: border-color 0.2s;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 30px;
+}
+</style>
