@@ -1,5 +1,5 @@
 <template>
-  <div id="map" class="shadow-lg" style="height: 650px; width: 100vw; border-radius: 0.5rem;"></div>
+  <div id="map" class="shadow-lg" style="max-height: 600px;"></div>
 </template>
 
 <script setup>

@@ -9,7 +9,7 @@
             cols="12"
             md="3"
             class="pa-0"
-            style="flex: 1 1 0; min-width: 300px;"
+            style="flex: 1 1 0; min-width: 100px;"
           >
             <v-btn
               block
@@ -27,19 +27,19 @@
       </v-app-bar>
       <v-main>
         <div v-if="selectedMenu === 'Inicio'">
-          <Welcome msg="Inicio" />
+          <Header msg="Inicio" />
           <Chart :chart-data="municiosChartData" />
         </div>
         <div v-if="selectedMenu === 'Municipios'">
-          <Welcome msg="Municipios" />
+          <Header msg="Municipios" />
           <Map />
         </div>
         <div v-else-if="selectedMenu === 'Centralizados'">
-          <h2 class="text-2xl font-semibold mb-4">Centralizados</h2>
+          <Header msg="Centralizados" />
           <p>Contenido para Centralizados.</p>
         </div>
         <div v-else-if="selectedMenu === 'Descentralizados'">
-          <h2 class="text-2xl font-semibold mb-4">Descentralizados</h2>
+          <Header msg="Descentralizados" />
           <p>Contenido para Descentralizados.</p>
         </div>
       </v-main>
@@ -49,12 +49,12 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import Welcome from './components/Welcome.vue'
+import Header from './components/Header.vue'
 import Map from './components/StateMap.vue'
 import Chart from './components/BarChart.vue'
 
 const menuOptions = ['Inicio', 'Municipios', 'Centralizados', 'Descentralizados']
-const selectedMenu = ref('Municipios')
+const selectedMenu = ref('Inicio')
 
 const municiosChartData = reactive({
   labels: ['Municipios', 'Centralizados', 'Descentralizados'],
@@ -75,15 +75,15 @@ const municiosChartData = reactive({
 
 <style>
 .menu-row {
-  gap: 32px !important; /* Increase space between buttons */
+  gap: 24px !important; /* Increase space between buttons */
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
 .menu-btn {
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: 2px;
+  margin-right: 2px;
   margin-bottom: 0 !important;
-  padding: 4px;
+  padding: 2px;
 }
 .menu-btn-bordered {
   border: 2px solid #c8ced4 !important;
