@@ -18,6 +18,14 @@
           />
         </router-link>
       </v-sheet>
+    <v-sheet class="ma-2 pa-2">
+        <router-link :to="{ name: 'Cultura' }">
+          <CardWithImage
+            image="ss.png"
+            title="Secretaría de Cultura"
+          />
+        </router-link>
+      </v-sheet>
     </v-row>
   </v-container>
 </template>

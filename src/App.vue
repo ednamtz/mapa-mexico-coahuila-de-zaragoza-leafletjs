@@ -1,9 +1,31 @@
 <template>
-  <nav>
-    <router-link to="/">Inicio</router-link>
-    <router-link to="/municipios">Municipios</router-link>
-    <router-link to="/centralizados">Centralizados</router-link>
-    <router-link to="/descentralizados">Descentralizados</router-link>
-  </nav>
-  <router-view />
+  <v-app>
+    <v-app-bar color="secondary" dark flat>
+      <v-toolbar-title class="text-h5"></v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        v-for="item in menuItems"
+        :key="item.text"
+        :to="item.to"
+        router
+        text
+        class="mx-2 text-lg"
+        exact
+      >
+        {{ item.text }}
+      </v-btn>
+    </v-app-bar>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
+
+<script setup>
+const menuItems = [
+  { text: 'Inicio', to: '/' },
+  { text: 'Municipios', to: '/municipios' },
+  { text: 'Centralizados', to: '/centralizados' },
+  { text: 'Descentralizados', to: '/descentralizados' }
+]
+</script>
