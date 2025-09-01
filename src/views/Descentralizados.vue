@@ -3,18 +3,18 @@
   <v-container>
     <v-row cols="3">
       <v-sheet class="ma-2 pa-2">
-        <router-link :to="{ name: 'Saltillo' }">
+        <router-link :to="{ name: 'Auditoria' }">
           <CardWithImage
-            image="saltillo.svg"
-            title="Saltillo"
+            image="sefirc.png"
+            title="Auditoría"
           />
         </router-link>
       </v-sheet>
       <v-sheet class="ma-2 pa-2">
-        <router-link :to="{ name: 'Torreon' }">
+        <router-link :to="{ name: 'Secretaria' }">
           <CardWithImage
-            image="torreon.svg"
-            title="Torreón"
+            image="sevot.png"
+            title="Secretaría"
           />
         </router-link>
       </v-sheet>

@@ -77,10 +77,10 @@ onMounted(() => {
           layer.on({
             mouseover: highlightFeature,
             mouseout: resetHighlight,
-            click: zoomToFeature
+            // click: zoomToFeature
           });
           if (feature.properties && feature.properties.NOMGEO) {
-            layer.bindPopup(feature.properties.NOMGEO);
+            layer.bindPopup('<a href="' + feature.properties.URL + '">' + feature.properties.NOMGEO + '</a>');
           }
         }
         statesLayer = window.L.geoJson(data, {
@@ -104,7 +104,7 @@ onMounted(() => {
       return this._div;
     };
     info.update = function (props) {
-      this._div.innerHTML = '<h4>Estados de México</h4>' + (props ?
+      this._div.innerHTML = '<h4>Municipio</h4>' + (props ?
         '<b>' + props.NOMGEO + '</b><br />' + ('Clave: ' + (props.CVE_MUN ? props.CVE_MUN : ''))
         : 'Pasa el ratón sobre un estado');
     };
