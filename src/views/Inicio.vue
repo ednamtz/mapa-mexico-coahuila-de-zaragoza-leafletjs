@@ -1,9 +1,9 @@
 <template>
   <div>
     <Header msg="Inicio" />
-    <BarChart :chart-data="municipiosBarChartData" />
-    <PieChart :chart-data="municipiosPieChartData" />
-    <BarChart :chart-data="universidadesBarChartData" />
+    <BarChart :chart-data="municipiosBarChartData" :chart-options="municipiosBarChartOptions" />
+    <PieChart :chart-data="municipiosPieChartData" :chart-options="municipiosPieChartOptions" />
+    <BarChart :chart-data="universidadesBarChartData" :chart-options="universidadesBarChartOptions" />
   </div>
 </template>
 
@@ -34,7 +34,22 @@ const municipiosBarChartData = {
   ]
 };
 
-
+const municipiosBarChartOptions = {
+  responsive: true,
+  plugins: {
+    legend: { position: 'top' },
+    datalabels: {
+      anchor: 'end',
+      align: 'end',
+      color: '#111827',
+      formatter: (value) => `${value} %`,
+      font: { weight: '600', size: 12 }
+    }
+  },
+  scales: {
+    y: { beginAtZero: true }
+  }
+};
 
 const municipiosPieChartData = {
   labels: ['SI', 'NO' ],
@@ -48,6 +63,18 @@ const municipiosPieChartData = {
   ]
 };
 
+const municipiosPieChartOptions = {
+  responsive: true,
+  plugins: {
+    legend: { position: 'top' },
+    datalabels: {
+      color: '#111827',
+      formatter: (value) => `${value} %`,
+      font: { weight: '600', size: 12 }
+    }
+  }
+};
+
 const universidadesBarChartData = {
   labels: ['Anual', 'Semestral', 'Trimestral', 'Continua', 'Por demanda', 'N/A' ],
   datasets: [
@@ -56,8 +83,26 @@ const universidadesBarChartData = {
       backgroundColor: '#f87171',
       data: [11, 2, 13, 28, 22, 2]
     },
-    
-   
+
+
   ]
 };
+
+const universidadesBarChartOptions = {
+  responsive: true,
+  plugins: {
+    legend: { position: 'top' },
+    datalabels: {
+      anchor: 'end',
+      align: 'end',
+      color: '#111827',
+      formatter: (value) => `${value} %`,
+      font: { weight: '600', size: 12 }
+    }
+  },
+  scales: {
+    y: { beginAtZero: true }
+  }
+};
+
 </script>
