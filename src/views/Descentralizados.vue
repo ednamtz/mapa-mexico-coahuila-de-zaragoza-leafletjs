@@ -5,8 +5,8 @@
       <v-sheet class="ma-2 pa-2">
         <router-link :to="{ name: 'Auditoria' }">
           <CardWithImage
-            image="sefirc.png"
-            title="Auditoría"
+            image="afg.png"
+            title="Administración Fiscal General"
           />
         </router-link>
       </v-sheet>
