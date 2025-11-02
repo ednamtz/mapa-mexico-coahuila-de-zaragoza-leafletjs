@@ -1,8 +1,9 @@
 <template>
   <div>
     <Header msg="Inicio" />
-    <BarChart :chart-data="municiosBarChartData" />
-    <PieChart :chart-data="municiosPieChartData" />
+    <BarChart :chart-data="municipiosBarChartData" />
+    <PieChart :chart-data="municipiosPieChartData" />
+    <BarChart :chart-data="universidadesBarChartData" />
   </div>
 </template>
 
@@ -17,30 +18,46 @@ import Header from '../components/Header.vue'
 import BarChart from '../components/BarChart.vue'
 import PieChart from '../components/PieChart.vue'
 
-const municiosBarChartData = {
-  labels: ['Municipios', 'Centralizados', 'Descentralizados'],
+const municipiosBarChartData = {
+  labels: ['Paramunicipales','Municipios', 'Centralizados', 'Descentralizados', 'Autónomos', 'Judicial','Universidades' ],
   datasets: [
     {
       label: 'SI',
       backgroundColor: '#f87171',
-      data: [20, 30, 22]
+      data: [1, 17, 6, 12, 3, 1, 8]
     },
     {
       label: 'NO',
       backgroundColor: '#bfdbfe',
-      data: [25, 15, 18]
+      data: [0, 7, 12, 5, 4, 0, 2]
     }
   ]
 };
 
-const municiosPieChartData = {
-  labels: ['Municipios', 'Centralizados', 'Descentralizados'],
+
+
+const municipiosPieChartData = {
+  labels: ['SI', 'NO' ],
   datasets: [
     {
-      label: 'Población',
+      label: 'Instituciones que evalúan los Mecanismos de Participación Ciudadana',
       backgroundColor: ['#f87171', '#bfdbfe', '#34d399'],
-      data: [45, 30, 40]
-    }
+      data: [36, 42]
+    },
+
+  ]
+};
+
+const universidadesBarChartData = {
+  labels: ['Anual', 'Semestral', 'Trimestral', 'Continua', 'Por demanda', 'N/A' ],
+  datasets: [
+    {
+      label: 'Frecuencia de Evaluación de Mecanismos de Participación Ciudadana',
+      backgroundColor: '#f87171',
+      data: [11, 2, 13, 28, 22, 2]
+    },
+    
+   
   ]
 };
 </script>

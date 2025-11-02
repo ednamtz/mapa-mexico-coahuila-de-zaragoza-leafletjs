@@ -1,8 +1,10 @@
 <template>
-  <Header msg="Sabinas" />
+  <Header msg="Progreso" />
   <main>
     <ul>
       <li><strong>Ubicación:</strong> Sabinas, Coahuila, México</li>
+      <li><strong>Contacto:</strong> contacto@saltillo.gob.mx</li>
+      <li><strong>Administrador:</strong> José Pérez</li><li><strong>Ubicación:</strong> Sabinas, Coahuila, México</li>
       <li><strong>Contacto:</strong> contacto@saltillo.gob.mx</li>
       <li><strong>Administrador:</strong> José Pérez</li><li><strong>Público objetivo:</strong> Sabinas, Coahuila, México</li>
       <li><strong>Materia en la que son competentes:</strong> contacto@saltillo.gob.mx</li>
