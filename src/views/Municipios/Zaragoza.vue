@@ -1,5 +1,5 @@
 <template>
-  <Header msg="Sabinas" />
+  <Header msg="Zaragoza" />
   <main>
     <ul>
       <li><strong>Ubicación:</strong> Sabinas, Coahuila, México</li>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "Sabinas"
+  name: "Torreon"
 };
 </script>
 

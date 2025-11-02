@@ -45,7 +45,7 @@ onMounted(() => {
       .then(data => {
         function style(feature) {
           return {
-            fillColor: '#A38AFF',
+            fillColor: '#AC5906',
             weight: 2,
             opacity: 1,
             color: 'white',
@@ -81,6 +81,13 @@ onMounted(() => {
           });
           if (feature.properties && feature.properties.NOMGEO) {
             layer.bindPopup('<a href="' + feature.properties.URL + '">' + feature.properties.NOMGEO + '</a>');
+            //layer.bindTooltip(feature.properties.NOMGEO, {
+              //permanent: true,
+              //direction: 'center',
+              //className: 'feature-label',
+              //offset: [0, 0]
+           // });
+
           }
         }
         statesLayer = window.L.geoJson(data, {

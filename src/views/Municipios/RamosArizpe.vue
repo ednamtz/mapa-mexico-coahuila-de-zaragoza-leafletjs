@@ -1,5 +1,5 @@
 <template>
-  <Header msg="Sabinas" />
+  <Header msg="Ramos Arizpe" />
   <main>
     <ul>
       <li><strong>Ubicación:</strong> Sabinas, Coahuila, México</li>
