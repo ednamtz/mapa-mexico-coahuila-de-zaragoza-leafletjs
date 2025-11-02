@@ -12,6 +12,14 @@ import * as directives from 'vuetify/directives'
 import { createRouter, createWebHistory } from 'vue-router'
 import routes from './routes' // Make sure to create this file with your route definitions
 
+// Import Chart.js
+import { Chart, registerables } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+// Register Chart.js components and plugins
+Chart.register(...registerables);
+Chart.register(ChartDataLabels);
+
 // Create Vuetify instance
 const vuetify = createVuetify({
   components,
